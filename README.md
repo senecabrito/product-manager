@@ -56,15 +56,3 @@ Acesse a documentação interativa em: https://localhost:PORTA/swagger
 * Encapsulamento nos Models: Validações básicas nas entidades para garantir a integridade dos dados antes da persistência.
 * DTOs Imutáveis: Uso de records para garantir que os dados não sejam alterados acidentalmente entre as camadas.
 * Conventional Commits: Histórico de mensagens do Git organizado por tipos (feat, chore, docs).
-
----
-
-### Passo Final no Git:
-
-Como você ajustou a descrição técnica para incluir os **Models** na camada de **Data**, o commit ideal seria:
-
-```bash
-git add README.md
-git commit -m "docs: atualiza README detalhando a presença dos Models na camada Data"
-git push origin main
-```
