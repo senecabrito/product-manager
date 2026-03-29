@@ -43,7 +43,9 @@ Abra o terminal na pasta raiz da solução e execute o comando das Migrations:
 dotnet ef database update --project ProductManager.Data --startup-project ProductManager.API
 
 ### 4. Rodando a API
+```bash
 dotnet run --project ProductManager.API
+```
 
 Acesse a documentação interativa em: https://localhost:PORTA/swagger
 
