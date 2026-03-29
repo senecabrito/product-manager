@@ -40,7 +40,9 @@ No arquivo `appsettings.json` (em `ProductManager.API`), configure sua string de
 
 ### 3. Aplicando as Tabelas
 Abra o terminal na pasta raiz da solução e execute o comando das Migrations:
+```bash
 dotnet ef database update --project ProductManager.Data --startup-project ProductManager.API
+```
 
 ### 4. Rodando a API
 ```bash
