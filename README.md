@@ -36,6 +36,7 @@ A solução foi dividida em camadas para garantir a separação de responsabilid
 No arquivo `appsettings.json` (em `ProductManager.API`), configure sua string de conexão:
 ```json
 "MSSQLServerSQLConnectionString": "Server=localhost;Database=ProductManagerDb;Trusted_Connection=True;TrustServerCertificate=True;"
+```
 
 ### 3. Aplicando as Tabelas
 Abra o terminal na pasta raiz da solução e execute o comando das Migrations:
@@ -62,3 +63,4 @@ Como você ajustou a descrição técnica para incluir os **Models** na camada d
 git add README.md
 git commit -m "docs: atualiza README detalhando a presença dos Models na camada Data"
 git push origin main
+```
