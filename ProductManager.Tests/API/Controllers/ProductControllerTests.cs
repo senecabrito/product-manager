@@ -73,8 +73,8 @@ namespace ProductManager.Tests.API.Controllers
         public void FindById_WhenProductDoesNotExist_ShouldReturnNotFound()
         {
             var id = Guid.NewGuid();
-            // Retorna nulo para simular que não achou no banco
-            _mockService.Setup(s => s.FindById(id)).Returns((ProductDTO)null!);
+            _mockService.Setup(s => s.FindById(id))
+                        .Throws(new KeyNotFoundException("The product was not found."));
 
             var result = _controller.FindById(id);
 
@@ -123,7 +123,8 @@ namespace ProductManager.Tests.API.Controllers
         public void Update_WhenProductDoesNotExist_ShouldReturnNotFound()
         {
             var inputDto = CreateValidDTO(Guid.NewGuid());
-            _mockService.Setup(s => s.Update(inputDto)).Returns((ProductDTO)null!);
+            _mockService.Setup(s => s.Update(inputDto))
+                        .Throws(new KeyNotFoundException("The product was not found."));
 
             var result = _controller.Update(inputDto);
 
@@ -139,6 +140,18 @@ namespace ProductManager.Tests.API.Controllers
 
             Assert.IsType<NoContentResult>(result); // Garante que retornou HTTP 204 No Content
             _mockService.Verify(s => s.Delete(id), Times.Once); // Garante que chamou o service pra deletar
+        }
+
+        [Fact]
+        public void Delete_WhenProductDoesNotExist_ShouldReturnNotFound()
+        {
+            var id = Guid.NewGuid();
+            _mockService.Setup(s => s.Delete(id))
+                        .Throws(new KeyNotFoundException("The product was not found."));
+
+            var result = _controller.Delete(id);
+
+            Assert.IsType<NotFoundResult>(result);
         }
     }
 }
