@@ -28,14 +28,16 @@ namespace ProductManager.API.Controllers
         public IActionResult FindById(Guid id)
         {
             _logger.LogInformation("Fetching product with ID {id}", id);
-            var product = _productService.FindById(id);
-            if (product == null)
+            try
+            {
+                var product = _productService.FindById(id);
+                return Ok(product);
+            }
+            catch (KeyNotFoundException)
             {
                 _logger.LogWarning("Product with ID {id} not found", id);
                 return NotFound();
             }
-
-            return Ok(product);
         }
 
         [HttpPost]
@@ -55,24 +57,39 @@ namespace ProductManager.API.Controllers
         public IActionResult Update([FromBody] ProductDTO product)
         {
             _logger.LogInformation("Updating product with ID {id}", product.Id);
-            var updatedProduct = _productService.Update(product);
-            if (updatedProduct == null)
+            try
             {
-                _logger.LogError("Failed to update product with ID {id}", product.Id);
+                var updatedProduct = _productService.Update(product);
+                _logger.LogDebug("Product update successfully: {Name}", product.Name);
+                return Ok(updatedProduct);
+            }
+            catch (KeyNotFoundException)
+            {
+                _logger.LogWarning("Product with ID {id} not found", product.Id);
                 return NotFound();
             }
-
-            _logger.LogDebug("Product update successfully: {Name}", product.Name);
-            return Ok(updatedProduct);
+            catch (ArgumentException ex)
+            {
+                _logger.LogWarning(ex, "Invalid data for update of product {id}", product.Id);
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
             _logger.LogInformation("Fetching product with ID {id}", id);
-            _productService.Delete(id);
-            _logger.LogDebug("Product with ID {id} deleted successfully.", id);
-            return NoContent();
+            try
+            {
+                _productService.Delete(id);
+                _logger.LogDebug("Product with ID {id} deleted successfully.", id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                _logger.LogWarning("Product with ID {id} not found", id);
+                return NotFound();
+            }
         }
     }
 }
