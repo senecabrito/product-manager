@@ -35,7 +35,16 @@ namespace ProductManager.Business.Services.Impl
 
         public ProductDTO Update(ProductDTO product)
         {
-            var entity = product.Adapt<Product>();
+            if (product.Id == Guid.Empty)
+            {
+                throw new ArgumentException("Product id must be provided for update.", nameof(product.Id));
+            }
+
+            var entity = new Product(product.Name, product.Price, product.Quantity, product.Category);
+
+            // Preserva o identificador para que o repositório atualize o registro existente
+            typeof(Product).GetProperty("Id")?.SetValue(entity, product.Id);
+
             entity = _repository.Update(entity);
             return entity.Adapt<ProductDTO>();
         }
