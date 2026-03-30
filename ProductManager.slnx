@@ -2,4 +2,5 @@
   <Project Path="ProductManager.API/ProductManager.API.csproj" />
   <Project Path="ProductManager.Business/ProductManager.Business.csproj" />
   <Project Path="ProductManager.Data/ProductManager.Data.csproj" />
+  <Project Path="ProductManager.Tests/ProductManager.Tests.csproj" Id="f1508292-4aa9-42e3-aa81-9c03e424a0d4" />
 </Solution>
